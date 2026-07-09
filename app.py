@@ -1,3 +1,7 @@
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
 import streamlit as st
 import pypdf
 import chromadb
@@ -45,7 +49,7 @@ def setup_system():
     ids = [f"chunk_{i}" for i in range(len(chunks))]
     collection.add(embeddings=embeddings, documents=chunks, ids=ids)
 
-    groq_client = Groq(api_key="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")
+    groq_client = groq(api_key=os.environ["GROQ_API_KEY"])
 
     return embedding_model, collection, groq_client, len(chunks)
 
